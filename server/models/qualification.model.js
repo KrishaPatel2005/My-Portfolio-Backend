@@ -1,14 +1,31 @@
-import mongoose from 'mongoose';
+// server/models/qualification.model.js
+import mongoose from "mongoose";
 
-// Qualification Schema
 const qualificationSchema = new mongoose.Schema({
-  title:       { type: String, required: true },
-  firstname:   String,
-  lastname:    String,
-  email:       String,
-  completion:  Date,
-  description: String
+  title: {
+    type: String,
+    required: [true, "Qualification title is required"],
+    trim: true,
+  },
+  institution: {
+    type: String,
+    required: [true, "Institution name is required"],
+    trim: true,
+  },
+  year: {
+    type: String,
+    required: [true, "Completion year is required"],
+    trim: true,
+  },
+  description: {
+    type: String,
+    trim: true,
+    default: "",
+  },
+  created: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-// Export model
-export default mongoose.model('Qualification', qualificationSchema);
+export default mongoose.model("Qualification", qualificationSchema);

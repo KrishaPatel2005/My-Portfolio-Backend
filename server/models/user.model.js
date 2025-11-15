@@ -1,8 +1,14 @@
+// server/models/user.model.js
 import mongoose from "mongoose";
 import crypto from "crypto";
 
+// ✅ Schema definition
 const UserSchema = new mongoose.Schema({
-  name: { type: String, trim: true, required: "Name is required" },
+  name: {
+    type: String,
+    trim: true,
+    required: "Name is required",
+  },
   email: {
     type: String,
     trim: true,
@@ -10,13 +16,29 @@ const UserSchema = new mongoose.Schema({
     match: [/.+\@.+\..+/, "Please fill a valid email address"],
     required: "Email is required",
   },
-  created: { type: Date, default: Date.now },
-  updated: { type: Date, default: Date.now },
-  hashed_password: { type: String, required: "Password is required" },
+  created: {
+    type: Date,
+    default: Date.now,
+  },
+  updated: {
+    type: Date,
+    default: Date.now,
+  },
+  hashed_password: {
+    type: String,
+    required: "Password is required",
+  },
   salt: String,
+
+  // ✅ Added for Assignment 3 – admin/user roles
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  },
 });
 
-// Virtual password field
+// ✅ Virtual password field (for hashing)
 UserSchema.virtual("password")
   .set(function (password) {
     this._password = password;
@@ -27,7 +49,7 @@ UserSchema.virtual("password")
     return this._password;
   });
 
-// Validation
+// ✅ Validation for password
 UserSchema.path("hashed_password").validate(function (v) {
   if (this._password && this._password.length < 6) {
     this.invalidate("password", "Password must be at least 6 characters.");
@@ -37,7 +59,7 @@ UserSchema.path("hashed_password").validate(function (v) {
   }
 }, null);
 
-// Authentication helpers
+// ✅ Helper methods for authentication
 UserSchema.methods = {
   authenticate: function (plainText) {
     return this.encryptPassword(plainText) === this.hashed_password;

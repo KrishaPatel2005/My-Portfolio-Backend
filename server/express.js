@@ -22,7 +22,7 @@ app.use(compression());
 app.use(helmet());
 
 // ✅ Mount all route files here
-app.use("/", authRoutes);
+app.use("/api", authRoutes);
 app.use("/", userRoutes);
 app.use("/api/contacts", contactRoutes);
 app.use("/api/projects", projectRoutes);

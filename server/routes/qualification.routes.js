@@ -1,3 +1,4 @@
+// server/routes/qualification.routes.js
 import express from "express";
 import {
   createQualification,
@@ -5,19 +6,26 @@ import {
   getQualification,
   updateQualification,
   deleteQualification,
-  deleteAllQualifications
+  deleteAllQualifications,
 } from "../controllers/qualification.controller.js";
+import authCtrl from "../controllers/auth.controller.js"; // Use same as contacts
 
 const router = express.Router();
 
-router.route("/")
-  .get(listQualifications)
-  .post(createQualification)
-  .delete(deleteAllQualifications);
+/**
+ * 📜 Public routes
+ * - Anyone can view qualifications (frontend display)
+ */
+router.get("/api/qualifications", listQualifications);
+router.get("/api/qualifications/:id", getQualification);
 
-router.route("/:id")
-  .get(getQualification)
-  .put(updateQualification)
-  .delete(deleteQualification);
+/**
+ * 🔒 Admin routes
+ * - Only signed-in admin can manage qualifications
+ */
+router.post("/api/qualifications", authCtrl.requireSignin, createQualification);
+router.put("/api/qualifications/:id", authCtrl.requireSignin, updateQualification);
+router.delete("/api/qualifications/:id", authCtrl.requireSignin, deleteQualification);
+router.delete("/api/qualifications", authCtrl.requireSignin, deleteAllQualifications);
 
 export default router;
