@@ -4,7 +4,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import API from "../api";
 
 export default function Contact() {
-  // 🩷 State for form fields
+  //  State for form fields
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,7 +14,7 @@ export default function Contact() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  // 🩷 Handle input changes
+  // Handle input changes
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -22,7 +22,7 @@ export default function Contact() {
     });
   };
 
-  // 🩷 Submit form data to backend
+  // Submit form data to backend
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -99,7 +99,7 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* 🩷 Right Section — Contact Form */}
+          {/*  Right Section — Contact Form */}
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <input
