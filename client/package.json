@@ -2,7 +2,7 @@
   "name": "my-portfolio",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://KrishaPatel2005.github.io/My-PortFolio",
+  "homepage": "https://krishapatel2005.github.io/My-Portfolio-Backend",
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@fortawesome/fontawesome-free": "^7.1.0",
